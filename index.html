@@ -1,0 +1,75 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+        <!-- Place favicon.ico in the root directory -->
+
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css">
+        <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <!-- Add your site or application content here -->
+        <main>
+        <h1>Wikipedia Viewer</h1>
+        <a href="https://en.wikipedia.org/wiki/Special:Random" target="_blank"><button style="margin-bottom: 14px;">I'm feeling lucky</button></a>
+        <div class="spacing">
+<input type="text" id="search" name="Wikipedia">
+<input type="submit" id="clickme" value="Wikipedia Search">
+        </div>
+        <section>            
+        </section>
+        </main>
+        <script>
+         $(document).ready(function(){
+          var input;
+          $("#clickme").click(function(){
+          input=document.getElementById("search").value;
+          $.ajax({
+            url:"https://en.wikipedia.org/w/api.php?",
+            data: {action: "query",list: "search", srsearch:input,format:"json"},
+            dataType: "jsonp",
+            success:function(data){
+            $("section").empty();
+        for (var i=0;i<6;i++){
+            var searchtitle=data.query.search[i].title;
+            var searchsnippet=data.query.search[i].snippet;
+            var titlearray=[];
+            titlearray.push(searchtitle);
+            str=searchtitle.replace(/\s+/g, '_');
+            var href="https://en.wikipedia.org/wiki/"+str;     
+            $("section").append("<div style='border: 1px solid; border-radius: 6px; background-color: #228B22;' class='spacing'><h2>"+searchtitle+"</h2><a  target='_blank' href="+href+">"+searchsnippet+"...</a></div>");
+           }
+       }
+          });
+          });
+         });          
+        </script>
+       <script  src="https://code.jquery.com/jquery-1.12.4.min.js"
+  integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+  crossorigin="anonymous">
+        </script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.12.0.min.js"><\/script>')</script>
+        <script src="js/plugins.js"></script>
+        <script src="js/main.js"></script>
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <script>
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='https://www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','UA-XXXXX-X','auto');ga('send','pageview');
+        </script>
+    </body>
+</html>
