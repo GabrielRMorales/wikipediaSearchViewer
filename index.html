@@ -44,8 +44,6 @@
         for (var i=0;i<6;i++){
             var searchtitle=data.query.search[i].title;
             var searchsnippet=data.query.search[i].snippet;
-            var titlearray=[];
-            titlearray.push(searchtitle);
             str=searchtitle.replace(/\s+/g, '_');
             var href="https://en.wikipedia.org/wiki/"+str;     
             $("section").append("<div style='border: 1px solid; border-radius: 6px; background-color: #228B22;' class='spacing'><h2>"+searchtitle+"</h2><a  target='_blank' href="+href+">"+searchsnippet+"...</a></div>");
